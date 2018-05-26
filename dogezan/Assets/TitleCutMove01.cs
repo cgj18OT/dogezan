@@ -26,7 +26,7 @@ public class TitleCutMove01 : MonoBehaviour {
 		image.enabled = true;
 		iTween.MoveTo (this.gameObject, iTween.Hash (
 			"position", new Vector3 (this.gameObject.transform.position.x, 
-									PositionY1, 
+				this.gameObject.transform.position.y + PositionY1, 
 									this.gameObject.transform.position.z),
 			"easeType", EaseType1,
 			"delay", Delay1,
