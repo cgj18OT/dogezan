@@ -12,8 +12,13 @@ namespace doge
 		public Sprite dogeza1;
 		public Sprite dogeza2;
 		public Sprite stand0;
+		public Sprite attack0;
+		public Sprite attack1;
 
 		public PlayerID playerID = PlayerID.Unknown;
+
+		private bool isAttack = false;
+		private uint attackIndex = 0;
 
 		override protected void Start()
 		{
@@ -31,6 +36,40 @@ namespace doge
 		}
 
 		void Update()
+		{
+			if (isAttack)
+			{
+				UpdateAttack();
+			}
+			else
+			{
+				UpdateDogeza();
+			}
+		}
+
+		void UpdateAttack()
+		{
+			var size = new Vector2(360, 385);
+
+			var pattern = new Sprite[]{
+				attack0,
+				attack0,
+				attack0,
+				attack1,
+				attack1,
+				attack1,
+			};
+
+			ChangePattern(pattern[attackIndex], size);
+
+			++attackIndex;
+			if (attackIndex >= pattern.Length)
+			{
+				isAttack = false;
+			}
+		}
+
+		void UpdateDogeza()
 		{
 			var vertical = Input.Vertical;
 			var size = new Vector2(360, 385);
@@ -54,7 +93,15 @@ namespace doge
 
 			if (Input.Attack)
 			{
-				MissGenerator.generate(playerID);
+				if (vertical >= 0.95)
+				{
+					isAttack = true;
+					attackIndex = 0;
+				}
+				else
+				{
+					MissGenerator.generate(playerID);
+				}
 			}
 		}
 
