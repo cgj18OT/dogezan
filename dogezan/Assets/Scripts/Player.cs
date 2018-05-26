@@ -8,11 +8,17 @@ namespace doge
 	{
 		private UnityEngine.UI.Image image;
 
-		public Sprite pattern00;
-		public Sprite pattern05;
-		public Sprite pattern10;
+		public Sprite dogeza0;
+		public Sprite dogeza1;
+		public Sprite dogeza2;
+		public Sprite stand0;
+		public Sprite attack0;
+		public Sprite attack1;
 
 		public PlayerID playerID = PlayerID.Unknown;
+
+		private bool isAttack = false;
+		private uint attackIndex = 0;
 
 		override protected void Start()
 		{
@@ -31,18 +37,71 @@ namespace doge
 
 		void Update()
 		{
-			var vertical = Input.Vertical;
-			if (vertical <= 0.33f)
+			if (isAttack)
 			{
-				ChangePattern(pattern00, new Vector2(266, 124));
-			}
-			else if (vertical <= 0.66f)
-			{
-				ChangePattern(pattern05, new Vector2(257, 238));
+				UpdateAttack();
 			}
 			else
 			{
-				ChangePattern(pattern10, new Vector2(237, 371));
+				UpdateDogeza();
+			}
+		}
+
+		void UpdateAttack()
+		{
+			var size = new Vector2(360, 385);
+
+			var pattern = new Sprite[]{
+				attack0,
+				attack0,
+				attack0,
+				attack1,
+				attack1,
+				attack1,
+			};
+
+			ChangePattern(pattern[attackIndex], size);
+
+			++attackIndex;
+			if (attackIndex >= pattern.Length)
+			{
+				isAttack = false;
+			}
+		}
+
+		void UpdateDogeza()
+		{
+			var vertical = Input.Vertical;
+			var size = new Vector2(360, 385);
+
+			if (vertical <= 0.25f)
+			{
+				ChangePattern(dogeza0, size);
+			}
+			else if (vertical <= 0.50f)
+			{
+				ChangePattern(dogeza1, size);
+			}
+			else if (vertical <= 0.75f)
+			{
+				ChangePattern(dogeza2, size);
+			}
+			else
+			{
+				ChangePattern(stand0, size);
+			}
+
+			if (Input.Attack)
+			{
+				if (vertical >= 0.95)
+				{
+					isAttack = true;
+					attackIndex = 0;
+				}
+				else
+				{
+					MissGenerator.generate(playerID);
+				}
 			}
 		}
 
