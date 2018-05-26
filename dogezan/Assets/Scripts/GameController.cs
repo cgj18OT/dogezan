@@ -15,15 +15,6 @@ namespace doge
 
 		void Update()
 		{
-			if (InputManager.P1.Attack)
-			{
-				MissGenerator.generate(PlayerID.P1);
-			}
-
-			if (InputManager.P2.Attack)
-			{
-				MissGenerator.generate(PlayerID.P2);
-			}
 		}
 
 		void OnStartGame()

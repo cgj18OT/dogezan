@@ -8,9 +8,10 @@ namespace doge
 	{
 		private UnityEngine.UI.Image image;
 
-		public Sprite pattern00;
-		public Sprite pattern05;
-		public Sprite pattern10;
+		public Sprite dogeza0;
+		public Sprite dogeza1;
+		public Sprite dogeza2;
+		public Sprite stand0;
 
 		public PlayerID playerID = PlayerID.Unknown;
 
@@ -32,17 +33,28 @@ namespace doge
 		void Update()
 		{
 			var vertical = Input.Vertical;
-			if (vertical <= 0.33f)
+			var size = new Vector2(360, 385);
+
+			if (vertical <= 0.25f)
 			{
-				ChangePattern(pattern00, new Vector2(266, 124));
+				ChangePattern(dogeza0, size);
 			}
-			else if (vertical <= 0.66f)
+			else if (vertical <= 0.50f)
 			{
-				ChangePattern(pattern05, new Vector2(257, 238));
+				ChangePattern(dogeza1, size);
+			}
+			else if (vertical <= 0.75f)
+			{
+				ChangePattern(dogeza2, size);
 			}
 			else
 			{
-				ChangePattern(pattern10, new Vector2(237, 371));
+				ChangePattern(stand0, size);
+			}
+
+			if (Input.Attack)
+			{
+				MissGenerator.generate(playerID);
 			}
 		}
 
