@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace doge
 {
-
-	public class Ready : DogeBehavior
+	public class Ready : DogeGameBehavior
 	{
 		public enum State
 		{
 			FirstWait,
 			ReadyWait,
+			InGame,
 		};
 		private State CurrentState = State.FirstWait;
 
@@ -21,13 +21,13 @@ namespace doge
 		public UnityEngine.UI.Text P1InputText;
 		public UnityEngine.UI.Text P2InputText;
 
-		// Use this for initialization
-		void Start()
+		override protected void Start()
 		{
+			base.Start();
+
 			InitFirstWait();
 		}
 
-		// Update is called once per frame
 		void Update()
 		{
 			switch (CurrentState)
@@ -46,8 +46,12 @@ namespace doge
 
 		private bool IsReadyInput()
 		{
-			var p1ready = Mathf.Abs(InputManager.P1.Vertical) <= 0.01f;
-			var p2ready = Mathf.Abs(InputManager.P2.Vertical) <= 0.01f;
+			var p1 = InputManager.P1;
+			var p2 = InputManager.P2;
+
+			var p1ready = Mathf.Abs(p1.Vertical) <= 0.01f && !p1.Attack;
+			var p2ready = Mathf.Abs(p2.Vertical) <= 0.01f && !p2.Attack;
+
 			return p1ready && p2ready;
 		}
 
@@ -64,18 +68,29 @@ namespace doge
 			}
 		}
 
+		private void SetMessageText(string msg)
+		{
+			MessageText.text = msg;
+		}
+
+		private void SetMessageScale(float scale)
+		{
+			MessageText.transform.localScale = new Vector3(scale, scale, 1);
+		}
+
 		private void InitFirstWait()
 		{
 			Debug.Log("Go to FirstWait.");
 			CurrentState = State.FirstWait;
 			GenericTimer = FirstWaitTime;
-			MessageText.text = "両者、構え！";
+			SetMessageText("両者、構え！");
+			SetMessageScale(1);
 		}
 
 		private void UpdateFirstWait()
 		{
 			GenericTimer -= Time.deltaTime;
-			Debug.Log("FirstWait... " + GenericTimer);
+			//Debug.Log("FirstWait... " + GenericTimer);
 
 			if (!IsReadyInput())
 			{
@@ -92,7 +107,8 @@ namespace doge
 		{
 			Debug.Log("Go to ReadyWait.");
 			CurrentState = State.ReadyWait;
-			MessageText.text = "";
+			SetMessageText("");
+			SetMessageScale(1);
 			GenericTimer = 3.0f;
 		}
 
@@ -109,7 +125,7 @@ namespace doge
 
 			if (GenericTimer <= 0.0f)
 			{
-				InitReadyStart();
+				InitInGame();
 				return;
 			}
 
@@ -119,17 +135,17 @@ namespace doge
 				old_index = index;
 				MessageText.transform.localScale = new Vector3(1, 1, 1);
 			}
-			string[] msg = {
-				"壱", "弐", "参"
-			};
-			MessageText.text = msg[index];
-			var scale = GenericTimer % 1;
-			MessageText.transform.localScale = new Vector3(scale, scale, 1);
+			string[] msg = { "壱", "弐", "参" };
+			SetMessageText(msg[index]);
+			SetMessageScale(GenericTimer % 1);
 		}
 
-		private void InitReadyStart()
+		private void InitInGame()
 		{
-			CurrentState = State.ReadyWait;
+			CurrentState = State.InGame;
+			Debug.Log("Go to InGame.");
+
+			StateRoot.BroadcastMessage("OnStartGame");
 		}
 	}
 }

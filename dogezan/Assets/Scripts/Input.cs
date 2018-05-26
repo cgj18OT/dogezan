@@ -7,6 +7,7 @@ namespace doge
 	public class Input : MonoBehaviour
 	{
 		public string VerticalKey = "";
+		public string AttackKey = "";
 		public PlayerID PlayerID = PlayerID.Unknown;
 
 		void Start()
@@ -23,6 +24,14 @@ namespace doge
 			get
 			{
 				return UnityEngine.Input.GetAxis(VerticalKey);
+			}
+		}
+
+		public bool Attack
+		{
+			get
+			{
+				return UnityEngine.Input.GetButtonDown(AttackKey);
 			}
 		}
 	}

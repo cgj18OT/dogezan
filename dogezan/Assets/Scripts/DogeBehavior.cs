@@ -5,17 +5,14 @@ using UnityEngine;
 namespace doge
 {
 	public class DogeBehavior : MonoBehaviour {
+		[HideInInspector]
+		[System.NonSerialized]
 		public InputManager InputManager;
 
-		void Awake()
+		virtual protected void Start()
 		{
 			InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
-		}
-
-		void Start() {
-		}
-
-		void Update() {
+			Debug.Assert(InputManager != null);
 		}
 	}
 }
