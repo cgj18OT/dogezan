@@ -27,6 +27,21 @@ namespace doge
 		void Update() {
 		}
 
+		public Input get(PlayerID playerID)
+		{
+			switch (playerID)
+			{
+				case PlayerID.Unknown:
+					Debug.Assert(false);
+					break;
+				case PlayerID.P1:
+					return P1;
+				case PlayerID.P2:
+					return _P2;
+			}
+			return null;
+		}
+
 		private Input _P1;
 		public Input P1
 		{
