@@ -22,7 +22,9 @@ namespace doge
 
 		public GameObject SongenDownEffect;
 		private GameObject MySongenDownEffect = null;
-		private bool isDogeza = false;
+		[HideInInspector]
+		[System.NonSerialized]
+		public bool isDogeza = false;
 		private bool isDogezaDowing = false;
 
 		public float SongenDownTimerInit = 0.1f;
@@ -32,6 +34,27 @@ namespace doge
 		private float SongenPointValue = 0;
 		public float SongenPointDownSpeed = 1.0f;
 		public UnityEngine.UI.Text DebugText;
+
+		[HideInInspector]
+		[System.NonSerialized]
+		public bool AlwaysDogeza = true;
+
+		public float AttackMissDamage = 0;
+
+		Player Enemy
+		{
+			get
+			{
+				if (playerID == PlayerID.P1)
+				{
+					return Player2;
+				}
+				else
+				{
+					return Player1;
+				}
+			}
+		}
 
 		void InitSongenValue()
 		{
@@ -44,12 +67,19 @@ namespace doge
 			SongenDownTimer = SongenDownTimerInit;
 			isDogeza = true;
 			isDogezaDowing = false;
+			AlwaysDogeza = false;
 		}
 
 		private bool canSongenDown = false;
 		void OnStartGame()
 		{
 			canSongenDown = true;
+		}
+
+		void OnEndGame()
+		{
+			enabled = false;
+			DebugText.text = SongenPointValue.ToString("F3");
 		}
 
 		void UpdateSongenDown()
@@ -103,7 +133,30 @@ namespace doge
 			{
 				var songenDelta = SongenPointDownSpeed * Time.deltaTime;
 				SongenPointValue -= songenDelta;
-				DebugText.text = SongenPointValue.ToString("F3");
+				if (SongenPointValue <= 0.0f)
+				{
+					OnSongenPointValueIsZero();
+				}
+			}
+		}
+
+		void OnSongenPointValueIsZero()
+		{
+			SongenPointValue = 0.0f;
+			StateRoot.BroadcastMessage("OnEndGame");
+			CanvasRoot.BroadcastMessage("OnEndGame");
+		}
+
+		public void AddSongenValue(float value)
+		{
+			if (canSongenDown)
+			{
+				SongenPointValue += value;
+
+				if (SongenPointValue <= 0.0f)
+				{
+					OnSongenPointValueIsZero();
+				}
 			}
 		}
 
@@ -139,6 +192,8 @@ namespace doge
 				UpdateDogeza();
 				UpdateSongenDown();
 			}
+
+			DebugText.text = SongenPointValue.ToString("F3");
 		}
 
 		void UpdateAttack()
@@ -191,10 +246,20 @@ namespace doge
 				{
 					isAttack = true;
 					attackIndex = 0;
+
+					if (Player2.isDogeza)
+					{
+						AddSongenValue(-AttackMissDamage);
+					}
+					else
+					{
+						Enemy.AddSongenValue(-100000);
+					}
 				}
 				else
 				{
 					MissGenerator.generate(playerID);
+					AddSongenValue(-AttackMissDamage);
 				}
 			}
 		}
