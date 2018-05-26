@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5135787789863c64dbfb1af95b7aa327
+timeCreated: 1527310329
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: AoyagiSosekiFont2
+  fontNames:
+  - AoyagiSosekiFont2
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

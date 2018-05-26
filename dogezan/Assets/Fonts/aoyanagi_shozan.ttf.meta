@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 79abf63fd3592794cb80865f6714fb0d
+timeCreated: 1527310329
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: AoyagiKouzanFontT
+  fontNames:
+  - AoyagiKouzanFontT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
