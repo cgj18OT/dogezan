@@ -18,8 +18,6 @@ namespace doge
 		private float GenericTimer = 0;
 
 		public UnityEngine.UI.Text MessageText;
-		public UnityEngine.UI.Text P1InputText;
-		public UnityEngine.UI.Text P2InputText;
 
 		override protected void Start()
 		{
@@ -40,8 +38,6 @@ namespace doge
 					UpdateReadyWait();
 					break;
 			}
-
-			UpdateInputText();
 		}
 
 		private bool IsReadyInput()
@@ -53,19 +49,6 @@ namespace doge
 			var p2ready = Mathf.Abs(p2.Vertical) <= 0.01f && !p2.Attack;
 
 			return p1ready && p2ready;
-		}
-
-		private void UpdateInputText()
-		{
-			if (P1InputText != null)
-			{
-				P1InputText.text = InputManager.P1.Vertical.ToString("F3");
-			}
-
-			if (P2InputText != null)
-			{
-				P2InputText.text = InputManager.P2.Vertical.ToString("F3");
-			}
 		}
 
 		private void SetMessageText(string msg)
@@ -146,6 +129,7 @@ namespace doge
 			Debug.Log("Go to InGame.");
 
 			StateRoot.BroadcastMessage("OnStartGame");
+			CanvasRoot.BroadcastMessage("OnStartGame");
 		}
 	}
 }

@@ -18,14 +18,14 @@ namespace doge
 
 		public void generate(PlayerID playerID)
 		{
-			var h = (playerID == PlayerID.P1) ? Random.Range(-353.0f, -126.0f) : Random.Range(126.0f, 353.0f);
-			h += 500;
-			var v = Random.Range(71, 198) + 300;
+			var h = (playerID == PlayerID.P1) ? Random.Range(-388.0f, -118.0f) : Random.Range(118.0f, 388.0f);
+			//h += 500;
+			var v = Random.Range(65, 217);// + 300;
 
 			var pos = new Vector3(h, v, 0);
 			var rot = Quaternion.identity;
 			var go = (GameObject)Instantiate(missPrefab, canvas.transform);
-			go.transform.position = pos;
+			go.transform.localPosition = pos;
 		}
 	}
 }

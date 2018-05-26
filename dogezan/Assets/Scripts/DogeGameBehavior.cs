@@ -14,6 +14,10 @@ namespace doge
 		[System.NonSerialized]
 		public MissGenerator MissGenerator;
 
+		[HideInInspector]
+		[System.NonSerialized]
+		public Canvas CanvasRoot;
+
 		override protected void Start()
 		{
 			base.Start();
@@ -23,6 +27,8 @@ namespace doge
 
 			MissGenerator = GameObject.Find("MissGenerator").GetComponent<MissGenerator>();
 			Debug.Assert(MissGenerator != null);
+
+			CanvasRoot = GameObject.Find("Canvas").GetComponent<Canvas>();
 		}
 	}
 }
