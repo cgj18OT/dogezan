@@ -48,7 +48,6 @@ public class SongenBar : MonoBehaviour {
 	{
 		var trans = go.transform as RectTransform;
 		trans.sizeDelta = new Vector2 (400 * (val / MaxValue), trans.sizeDelta.y);
-		Debug.Log (go.name + " : " + value.ToString ());
 	}
 	void SetBarColor(GameObject go, float val)
 	{
