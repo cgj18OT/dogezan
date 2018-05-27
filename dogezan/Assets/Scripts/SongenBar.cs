@@ -25,6 +25,7 @@ public class SongenBar : MonoBehaviour {
 	void Update () {
 		value = value - (value - Value) * 0.1f;
 		SetSize (gameObject, value);
+		SetBarColor (gameObject, value);
 		if (Mathf.Abs (value - Value) < 0.3f) {
 			if (Particle.isEmitting)
 				Particle.Stop (true, ParticleSystemStopBehavior.StopEmitting);
@@ -48,6 +49,19 @@ public class SongenBar : MonoBehaviour {
 		var trans = go.transform as RectTransform;
 		trans.sizeDelta = new Vector2 (400 * (val / MaxValue), trans.sizeDelta.y);
 		Debug.Log (go.name + " : " + value.ToString ());
+	}
+	void SetBarColor(GameObject go, float val)
+	{
+		var img = go.GetComponent<Image> ();
+		var c = img.color;
+		c.g = (val / MaxValue);
+		c.b = (86 / 255.0f) * (val / MaxValue);
+		img.color = c;
+		var main = Particle.main;
+		ParticleSystem.MinMaxGradient grad = new ParticleSystem.MinMaxGradient();
+		grad.mode = ParticleSystemGradientMode.Color;
+		grad.color = c;
+		main.startColor = grad;
 	}
 
 	public void Reset()
