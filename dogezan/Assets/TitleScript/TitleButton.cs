@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class TitleButton : MonoBehaviour {
 	public float Step = 0.05f;
 	float alpha = 0.0f;
+	public GameObject WhiteFadeObject;
 
 	// Use this for initialization
 	void Awake () {
@@ -30,13 +31,14 @@ public class TitleButton : MonoBehaviour {
 
 		if (Input.anyKeyDown) {
 			AudioPlay ("Audio Source3");
+			WhiteFadeObject.SetActive (true);
 			Invoke ("ChangeScene", 2);
 		}
 	}
 
 	void ChangeScene()
 	{	
-		SceneManager.LoadScene ("Game");
+		SceneManager.LoadScene ("DogezaChan");
 	}
 
 	void SetAlpha(float a)

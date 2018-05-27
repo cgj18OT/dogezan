@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c351fd952537ef7419e61c436d14e9a2
+timeCreated: 1527385057
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 64
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HuiFont
+  fontNames:
+  - HuiFont
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
