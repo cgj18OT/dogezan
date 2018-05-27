@@ -46,6 +46,12 @@ namespace doge
 
 		private UnityEngine.UI.Image[] images;
 
+		public AudioClip AudioChangePattern;
+		public AudioClip AudioEnemyKill;
+		public AudioClip AudioKaraburi;
+		public AudioClip AudioDogezaAttack;
+		private AudioSource AudioSource;
+
 		Player Enemy
 		{
 			get
@@ -184,7 +190,9 @@ namespace doge
 			SongenBar.Value = SongenPointMax;
 
 			images = GetComponentsInChildren<UnityEngine.UI.Image>();
-			Debug.Assert(images.Length == 2);
+
+			AudioSource = GetComponent<AudioSource>();
+			Debug.Assert(AudioSource != null);
 		}
 
 		private Input Input
@@ -206,6 +214,8 @@ namespace doge
 
 			DebugText.text = SongenPointValue.ToString("F3");
 			SongenBar.Value = SongenPointValue;
+
+			_oldPatternChangeTimer += Time.deltaTime;
 		}
 
 		void UpdateAttack()
@@ -237,19 +247,19 @@ namespace doge
 
 			if (vertical <= 0.25f)
 			{
-				ChangePattern(dogeza0, size);
+				ChangePattern(dogeza0, size, AudioChangePattern, 0.15f);
 			}
 			else if (vertical <= 0.50f)
 			{
-				ChangePattern(dogeza1, size);
+				ChangePattern(dogeza1, size, AudioChangePattern, 0.15f);
 			}
 			else if (vertical <= 0.75f)
 			{
-				ChangePattern(dogeza2, size);
+				ChangePattern(dogeza2, size, AudioChangePattern, 0.15f);
 			}
 			else
 			{
-				ChangePattern(stand0, size);
+				ChangePattern(stand0, size, AudioChangePattern, 0.15f);
 			}
 
 			if (Input.Attack)
@@ -259,29 +269,57 @@ namespace doge
 					isAttack = true;
 					attackIndex = 0;
 
-					if (Player2.isDogeza)
+					if (Enemy.isDogeza)
 					{
 						AddSongenValue(-AttackMissDamage);
+						AudioSource.volume = 1.0f;
+						AudioSource.PlayOneShot(AudioDogezaAttack);
 					}
 					else
 					{
 						Enemy.AddSongenValue(-100000);
+						AudioSource.volume = 1.0f;
+						if (canSongenDown)
+						{
+							AudioSource.PlayOneShot(AudioEnemyKill);
+						}
+						else
+						{
+							AudioSource.PlayOneShot(AudioKaraburi);
+						}
 					}
 				}
 				else
 				{
 					MissGenerator.generate(playerID);
 					AddSongenValue(-AttackMissDamage);
+					AudioSource.volume = 1.0f;
+					AudioSource.PlayOneShot(AudioKaraburi);
 				}
 			}
 		}
 
-		void ChangePattern(Sprite pattern, Vector2 size)
+		private Sprite _oldPattern = null;
+		private float _oldPatternChangeTimer = 0.0f;
+		void ChangePattern(Sprite pattern, Vector2 size, AudioClip clip = null, float volume = 1.0f)
 		{
+			if (_oldPattern == pattern)
+			{
+				return;
+			}
+			_oldPattern = pattern;
+
 			foreach (var image in images)
 			{
 				image.sprite = pattern;
 				image.rectTransform.sizeDelta = size;
+			}
+
+			if (clip != null && _oldPatternChangeTimer >= 0.1f)
+			{
+				AudioSource.volume = volume;
+				AudioSource.PlayOneShot(clip);
+				_oldPatternChangeTimer = 0.0f;
 			}
 		}
 	}
