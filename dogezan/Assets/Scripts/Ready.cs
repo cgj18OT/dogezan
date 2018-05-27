@@ -134,7 +134,7 @@ namespace doge
 			}
 			string[] msg = { "壱", "弐", "参" };
 			SetMessageText(msg[index]);
-			SetMessageScale(GenericTimer % 1);
+			SetMessageScale((GenericTimer % 1) * 2.0f);
 		}
 
 		private void InitInGame()
@@ -148,6 +148,10 @@ namespace doge
 
 			StateRoot.BroadcastMessage("OnStartGame");
 			CanvasRoot.BroadcastMessage("OnStartGame");
+
+			SetMessageText("始め！");
+			SetMessageScale(1.0f);
+			MessageText.StartAlphaUpdate();
 		}
 	}
 }

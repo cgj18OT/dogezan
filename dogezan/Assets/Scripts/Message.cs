@@ -8,12 +8,47 @@ namespace doge
 	{
 		private UnityEngine.UI.Text[] texts;
 
+		bool isAlphaUpdate = false;
+
+		public void StartAlphaUpdate()
+		{
+			isAlphaUpdate = true;
+		}
+
+		void UpdateAlphaUpdate()
+		{
+			if (isAlphaUpdate)
+			{
+				foreach (var t in texts)
+				{
+					var color = t.color;
+					color.a -= Time.deltaTime * 1.0f;
+					if (color.a <= 0.0f)
+					{
+						color.a = 0.0f;
+					}
+					t.color = color;
+				}
+			}
+		}
+
+		void ResetAlphaUpdate()
+		{
+			isAlphaUpdate = false;
+			texts[0].color = colorBack;
+			texts[1].color = colorFront;
+		}
+
+		Color colorFront;
+		Color colorBack;
+
 		public string _text;
 		public string text
 		{
 			get { return _text; }
 			set
 			{
+				ResetAlphaUpdate();
 				_text = value;
 				foreach (var t in texts)
 				{
@@ -28,6 +63,7 @@ namespace doge
 			get { return _fontSize; }
 			set
 			{
+				ResetAlphaUpdate();
 				_fontSize = value;
 				foreach (var t in texts)
 				{
@@ -50,12 +86,16 @@ namespace doge
 			texts = GetComponentsInChildren<UnityEngine.UI.Text>();
 			Debug.Assert(texts.Length == 2);
 
+			colorBack = texts[0].color;
+			colorFront = texts[1].color;
+
 			text = _text;
 			fontSize = _fontSize;
 		}
 
 		void Update()
 		{
+			UpdateAlphaUpdate();
 		}
 	}
 }
