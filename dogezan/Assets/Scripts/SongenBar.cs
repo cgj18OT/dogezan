@@ -9,9 +9,13 @@ public class SongenBar : MonoBehaviour {
 	public float Value = 100.0f;
 	public GameObject ShadowObject;
 	public GameObject ShadowObject2;
+	public ParticleSystem Particle;
 	float value = 100.0f;
 	float shadowValue = 100.0f;
 	float shadowValue2 = 100.0f;
+	public float ParticlePosMin = 0;
+	public float ParticlePosMax = 400;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +25,16 @@ public class SongenBar : MonoBehaviour {
 	void Update () {
 		value = value - (value - Value) * 0.1f;
 		SetSize (gameObject, value);
+		if (Mathf.Abs (value - Value) < 0.3f) {
+			if (Particle.isEmitting)
+				Particle.Stop (true, ParticleSystemStopBehavior.StopEmitting);
+		} else {
+			if (!Particle.isEmitting)
+				Particle.Play (true);
+		}
+		var ppos = Particle.gameObject.transform.localPosition;
+		ppos.x = (ParticlePosMax - ParticlePosMin) * (value / MaxValue);
+		Particle.gameObject.transform.localPosition = ppos;
 
 		shadowValue = shadowValue - (shadowValue - Value) * 0.05f;
 		SetSize (ShadowObject, shadowValue);
