@@ -303,8 +303,6 @@ namespace doge
 					}
 					else
 					{
-						Enemy.AddSongenValue(-100000);
-						AudioSource.volume = 1.0f;
 						if (canSongenDown)
 						{
 							MissGenerator.generate(playerID, "死になはれ");
@@ -316,6 +314,9 @@ namespace doge
 							MissGenerator.generate(Enemy.playerID, "やめて");
 							AudioSource.PlayOneShot(AudioKaraburi);
 						}
+
+						Enemy.AddSongenValue(-100000);
+						AudioSource.volume = 1.0f;
 					}
 				}
 				else
