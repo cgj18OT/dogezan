@@ -56,7 +56,7 @@ public class TitleCutMove01 : MonoBehaviour {
 		AudioPlay ("Audio Source2");
 	}
 	void OncompleteHandler2(){
-		Invoke ("ButtonVisible", 2);
+		Invoke ("ButtonVisible", 1);
 	}
 	void ButtonVisible() {
 		if (PlaySE) {
