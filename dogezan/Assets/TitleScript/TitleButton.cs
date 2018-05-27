@@ -15,10 +15,11 @@ public class TitleButton : MonoBehaviour {
 		alpha = 0.0f;
 		SetAlpha (0);
 	}
+	bool keyDowned = false;
 	
 	// Update is called once per frame
 	void Update () {
-		if (!enabled)
+		if (!enabled || keyDowned)
 			return;
 		
 		alpha += Step;
@@ -30,6 +31,8 @@ public class TitleButton : MonoBehaviour {
 
 
 		if (Input.anyKeyDown) {
+			keyDowned = true;
+			SetAlpha (1);
 			AudioPlay ("Audio Source3");
 			WhiteFadeObject.SetActive (true);
 			Invoke ("ChangeScene", 2);
