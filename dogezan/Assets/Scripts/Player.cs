@@ -313,7 +313,7 @@ namespace doge
 					}
 					else
 					{
-						MissGenerator.generate(Enemy.playerID, "やめなはれ");
+						MissGenerator.generate(Enemy.playerID, "やめて");
 					}
 
 					AddSongenValue(-AttackMissDamage);
