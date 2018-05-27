@@ -88,6 +88,6 @@ public class ResultManager : MonoBehaviour {
 
 	void NextScene()
 	{
-		SceneManager.LoadScene ("Title");
+		SceneManager.LoadScene ("Game");
 	}
 }
