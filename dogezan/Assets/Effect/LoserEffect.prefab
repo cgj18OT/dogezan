@@ -60,7 +60,7 @@ MonoBehaviour:
   Delay: 0
   Time: 1
   EaseType: 24
-  PositionY: -1
+  PositionY: -2
 --- !u!114 &114569560273298410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,6 +167,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -271, y: 1135}
-  m_SizeDelta: {x: 316, y: 315}
+  m_AnchoredPosition: {x: -261.11, y: 1145}
+  m_SizeDelta: {x: 296.22, y: 295}
   m_Pivot: {x: 0.5, y: 0.5}
