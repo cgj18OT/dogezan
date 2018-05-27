@@ -16,16 +16,16 @@ namespace doge
 		void Update() {
 		}
 
-		public void generate(PlayerID playerID)
+		public void generate(PlayerID playerID, string message)
 		{
 			var h = (playerID == PlayerID.P1) ? Random.Range(-388.0f, -118.0f) : Random.Range(118.0f, 388.0f);
-			//h += 500;
-			var v = Random.Range(65, 217);// + 300;
+			var v = Random.Range(65, 217);
 
 			var pos = new Vector3(h, v, 0);
 			var rot = Quaternion.identity;
 			var go = (GameObject)Instantiate(missPrefab, canvas.transform);
 			go.transform.localPosition = pos;
+			go.GetComponent<Miss2>().text = message;
 		}
 	}
 }
