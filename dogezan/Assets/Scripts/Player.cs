@@ -300,7 +300,7 @@ namespace doge
 						}
 						else
 						{
-							MissGenerator.generate(Enemy.playerID, "やめなはれ");
+							MissGenerator.generate(Enemy.playerID, "やめて");
 							AudioSource.PlayOneShot(AudioKaraburi);
 						}
 					}
