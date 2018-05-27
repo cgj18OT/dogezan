@@ -116,7 +116,11 @@ namespace doge
 		public void Unko()
 		{
 			var unko = (GameObject)Instantiate(LoserEffect, CanvasRoot.transform);
-			unko.transform.localPosition = image.transform.localPosition;
+
+			unko.transform.localPosition = new Vector3 (
+				image.transform.localPosition.x,
+				unko.transform.localPosition.y,
+				image.transform.localPosition.z);
 		}
 
 		void UpdateSongenDown()

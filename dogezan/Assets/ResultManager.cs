@@ -15,6 +15,30 @@ public class ResultManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		switch (GameResultData.Reason) {
+		case EndReason.SongenIsZero:
+			{
+				var img1 = GameObject.Find ("ResultDogeza").GetComponent<Image> ();
+				var img2 = GameObject.Find ("ResultKill").GetComponent<Image> ();
+				var img3 = GameObject.Find ("ResultChan").GetComponent<Image> ();
+				img1.enabled = true;
+				img2.enabled = false;
+				img3.enabled = false;
+			}
+			break;
+		case EndReason.Killed:
+			{
+				var img1 = GameObject.Find ("ResultDogeza").GetComponent<Image> ();
+				var img2 = GameObject.Find ("ResultKill").GetComponent<Image> ();
+				var img3 = GameObject.Find ("ResultChan").GetComponent<Image> ();
+				img1.enabled = false;
+				img2.enabled = true;
+				img3.enabled = false;
+			}
+			break;
+		}
+
+
 		switch (GameResultData.Result) {
 		case PlayerID.P1:
 			ResultText.text = "左の者の勝利です！" + System.Environment.NewLine
@@ -34,13 +58,21 @@ public class ResultManager : MonoBehaviour {
 			break;
 		default:
 			ResultText.text = "引き分け・・・" + System.Environment.NewLine
-				+ System.Environment.NewLine
-				+ "二人の尊厳は失われた";
+			+ System.Environment.NewLine
+			+ "二人の尊厳は失われた";
 
 			ScoreText.text = "左の者　尊厳 : " + System.Environment.NewLine
-				+ "右の者　尊厳 : ";
+			+ "右の者　尊厳 : ";
 			Unn1.enabled = true;
 			Unn2.enabled = true;
+			{
+				var img1 = GameObject.Find ("ResultDogeza").GetComponent<Image> ();
+				var img2 = GameObject.Find ("ResultKill").GetComponent<Image> ();
+				var img3 = GameObject.Find ("ResultChan").GetComponent<Image> ();
+				img1.enabled = false;
+				img2.enabled = false;
+				img3.enabled = true;
+			}
 			break;
 		}
 	}
