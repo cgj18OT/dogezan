@@ -67,6 +67,7 @@ namespace doge
 				}
 				GameResultData.P1.SongenValue = Player1.SongenPointValue;
 				GameResultData.P2.SongenValue = Player2.SongenPointValue;
+				Player1.Unko();
 			}
 			else if (Player1.SongenPointValue > Player2.SongenPointValue)
 			{
@@ -82,6 +83,7 @@ namespace doge
 				}
 				GameResultData.P1.SongenValue = Player1.SongenPointValue;
 				GameResultData.P2.SongenValue = Player2.SongenPointValue;
+				Player2.Unko();
 			}
 			MessageText.text = text;
 			MessageText.frontColor = new Color(1, 0, 0, 1);

@@ -58,6 +58,8 @@ namespace doge
 
 		private Vector3 InitPos;
 
+		public GameObject LoserEffect;
+
 		Player Enemy
 		{
 			get
@@ -109,6 +111,12 @@ namespace doge
 				Destroy(MySongenDownEffect);
 				MySongenDownEffect = null;
 			}
+		}
+
+		public void Unko()
+		{
+			var unko = (GameObject)Instantiate(LoserEffect, CanvasRoot.transform);
+			unko.transform.localPosition = image.transform.localPosition;
 		}
 
 		void UpdateSongenDown()
