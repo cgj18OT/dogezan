@@ -39,6 +39,8 @@ namespace doge
 
 		void OnEndGame()
 		{
+			BGM.Stop();
+
 			MessageText.transform.localScale = new Vector3(1, 1, 1);
 
 			string text = "";
@@ -47,6 +49,7 @@ namespace doge
 			{
 				text = "両者、敗北";
 				GameResultData.Result = PlayerID.Unknown;
+				GameResultData.Reason = EndReason.SongenIsZero;
 				GameResultData.P1.SongenValue = 0.0f;
 				GameResultData.P2.SongenValue = 0.0f;
 			}
@@ -54,6 +57,14 @@ namespace doge
 			{
 				text = "勝者、右の者";
 				GameResultData.Result = PlayerID.P2;
+				if (Player2.KillYou)
+				{
+					GameResultData.Reason = EndReason.Killed;
+				}
+				else
+				{
+					GameResultData.Reason = EndReason.SongenIsZero;
+				}
 				GameResultData.P1.SongenValue = Player1.SongenPointValue;
 				GameResultData.P2.SongenValue = Player2.SongenPointValue;
 			}
@@ -61,6 +72,14 @@ namespace doge
 			{
 				text = "勝者、左の者";
 				GameResultData.Result = PlayerID.P1;
+				if (Player1.KillYou)
+				{
+					GameResultData.Reason = EndReason.Killed;
+				}
+				else
+				{
+					GameResultData.Reason = EndReason.SongenIsZero;
+				}
 				GameResultData.P1.SongenValue = Player1.SongenPointValue;
 				GameResultData.P2.SongenValue = Player2.SongenPointValue;
 			}

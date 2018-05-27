@@ -87,7 +87,6 @@ namespace doge
 		private void UpdateFirstWait()
 		{
 			GenericTimer -= Time.deltaTime;
-			//Debug.Log("FirstWait... " + GenericTimer);
 
 			if (!IsReadyInput())
 			{
@@ -142,6 +141,8 @@ namespace doge
 		{
 			CurrentState = State.InGame;
 			Debug.Log("Go to InGame.");
+
+			BGM.Play();
 
 			AudioSource.PlayOneShot(AudioGameStart);
 

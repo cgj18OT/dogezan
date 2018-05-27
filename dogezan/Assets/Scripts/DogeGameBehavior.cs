@@ -12,6 +12,10 @@ namespace doge
 
 		[HideInInspector]
 		[System.NonSerialized]
+		public BGM BGM;
+
+		[HideInInspector]
+		[System.NonSerialized]
 		public MissGenerator MissGenerator;
 
 		[HideInInspector]
@@ -32,6 +36,9 @@ namespace doge
 
 			StateRoot = GameObject.Find("StateRoot").transform;
 			Debug.Assert(StateRoot != null);
+
+			BGM = GameObject.Find("BGM").GetComponent<BGM>();
+			Debug.Assert(BGM != null);
 
 			MissGenerator = GameObject.Find("MissGenerator").GetComponent<MissGenerator>();
 			Debug.Assert(MissGenerator != null);

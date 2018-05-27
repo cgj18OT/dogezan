@@ -42,6 +42,10 @@ namespace doge
 		[System.NonSerialized]
 		public bool AlwaysDogeza = true;
 
+		[HideInInspector]
+		[System.NonSerialized]
+		public bool KillYou = false;
+
 		public float AttackMissDamage = 0;
 
 		private UnityEngine.UI.Image[] images;
@@ -297,6 +301,7 @@ namespace doge
 						{
 							MissGenerator.generate(playerID, "死になはれ");
 							AudioSource.PlayOneShot(AudioEnemyKill);
+							KillYou = true;
 						}
 						else
 						{
