@@ -93,6 +93,18 @@ namespace doge
 		{
 			enabled = false;
 			DebugText.text = SongenPointValue.ToString("F3");
+			EndDogeza();
+		}
+
+		void EndDogeza()
+		{
+			isDogeza = false;
+			isDogezaDowing = false;
+			if (MySongenDownEffect != null)
+			{
+				Destroy(MySongenDownEffect);
+				MySongenDownEffect = null;
+			}
 		}
 
 		void UpdateSongenDown()
@@ -111,13 +123,7 @@ namespace doge
 			}
 			else
 			{
-				isDogeza = false;
-				isDogezaDowing = false;
-				if (MySongenDownEffect != null)
-				{
-					Destroy(MySongenDownEffect);
-					MySongenDownEffect = null;
-				}
+				EndDogeza();
 				return;
 			}
 
