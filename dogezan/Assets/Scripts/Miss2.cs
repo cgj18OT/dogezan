@@ -16,6 +16,10 @@ public class Miss2 : MonoBehaviour
 		set
 		{
 			_text = value;
+			if (texts == null)
+			{
+				texts = GetComponentsInChildren<UnityEngine.UI.Text>();
+			}
 			foreach (var t in texts)
 			{
 				t.text = value;
@@ -25,7 +29,10 @@ public class Miss2 : MonoBehaviour
 
 	void Start()
 	{
-		texts = GetComponentsInChildren<UnityEngine.UI.Text>();
+		if (texts == null)
+		{
+			texts = GetComponentsInChildren<UnityEngine.UI.Text>();
+		}
 		Debug.Assert(texts.Length == 2);
 		timer = alphaTimer;
 	}

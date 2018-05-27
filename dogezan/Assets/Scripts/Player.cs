@@ -284,6 +284,7 @@ namespace doge
 
 					if (Enemy.isDogeza)
 					{
+						MissGenerator.generate(playerID, "すまぬ……");
 						AddSongenValue(-AttackMissDamage);
 						AudioSource.volume = 1.0f;
 						AudioSource.PlayOneShot(AudioDogezaAttack);
@@ -294,17 +295,27 @@ namespace doge
 						AudioSource.volume = 1.0f;
 						if (canSongenDown)
 						{
+							MissGenerator.generate(playerID, "死になはれ");
 							AudioSource.PlayOneShot(AudioEnemyKill);
 						}
 						else
 						{
+							MissGenerator.generate(Enemy.playerID, "やめなはれ");
 							AudioSource.PlayOneShot(AudioKaraburi);
 						}
 					}
 				}
 				else
 				{
-					MissGenerator.generate(playerID);
+					if (canSongenDown)
+					{
+						MissGenerator.generate(playerID, "不覚…！");
+					}
+					else
+					{
+						MissGenerator.generate(Enemy.playerID, "やめなはれ");
+					}
+
 					AddSongenValue(-AttackMissDamage);
 					AudioSource.volume = 1.0f;
 					AudioSource.PlayOneShot(AudioKaraburi);
