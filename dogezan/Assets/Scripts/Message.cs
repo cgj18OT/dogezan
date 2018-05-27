@@ -36,6 +36,15 @@ namespace doge
 			}
 		}
 
+		public Color frontColor
+		{
+			get { return texts[1].color; }
+			set
+			{
+				texts[1].color = value;
+			}
+		}
+
 		void Start()
 		{
 			texts = GetComponentsInChildren<UnityEngine.UI.Text>();

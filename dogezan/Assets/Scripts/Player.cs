@@ -31,7 +31,9 @@ namespace doge
 		private float SongenDownTimer = 0.1f;
 
 		public float SongenPointMax = 100;
-		private float SongenPointValue = 0;
+		[HideInInspector]
+		[System.NonSerialized]
+		public float SongenPointValue = 0;
 		public float SongenPointDownSpeed = 1.0f;
 		public SongenBar SongenBar;
 		public UnityEngine.UI.Text DebugText;

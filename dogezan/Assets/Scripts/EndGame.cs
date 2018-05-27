@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace doge
 {
-	public class EndGame : MonoBehaviour
+	public class EndGame : DogeGameBehavior
 	{
 		public Message MessageText;
 
@@ -12,8 +12,10 @@ namespace doge
 
 		private float timer = 2.0f;
 
-		void Start()
+		protected override void Start()
 		{
+			base.Start();
+
 			Debug.Assert(MessageText != null);
 		}
 
@@ -32,7 +34,23 @@ namespace doge
 		void OnEndGame()
 		{
 			MessageText.transform.localScale = new Vector3(1, 1, 1);
-			MessageText.text = "そこまで！";
+
+			string text = "";
+			var diff = Mathf.Abs(Player1.SongenPointValue - Player2.SongenPointValue);
+			if(diff < 0.5f)
+			{
+				text = "両者、敗北";
+			}
+			else if (Player1.SongenPointValue < Player2.SongenPointValue)
+			{
+				text = "勝者、右の者";
+			}
+			else if (Player1.SongenPointValue > Player2.SongenPointValue)
+			{
+				text = "勝者、左の者";
+			}
+			MessageText.text = text;
+			MessageText.frontColor = new Color(1, 0, 0, 1);
 
 			isEnd = true;
 		}
