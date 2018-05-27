@@ -42,6 +42,8 @@ namespace doge
 
 		public float AttackMissDamage = 0;
 
+		private UnityEngine.UI.Image[] images;
+
 		Player Enemy
 		{
 			get
@@ -178,6 +180,9 @@ namespace doge
 			Debug.Assert(SongenBar != null);
 			SongenBar.MaxValue = SongenPointMax;
 			SongenBar.Value = SongenPointMax;
+
+			images = GetComponentsInChildren<UnityEngine.UI.Image>();
+			Debug.Assert(images.Length == 2);
 		}
 
 		private Input Input
@@ -271,8 +276,11 @@ namespace doge
 
 		void ChangePattern(Sprite pattern, Vector2 size)
 		{
-			image.sprite = pattern;
-			image.rectTransform.sizeDelta = size;
+			foreach (var image in images)
+			{
+				image.sprite = pattern;
+				image.rectTransform.sizeDelta = size;
+			}
 		}
 	}
 }
