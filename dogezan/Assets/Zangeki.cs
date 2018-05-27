@@ -8,6 +8,7 @@ public class Zangeki : MonoBehaviour {
 	public Image Base;
 	public Image Shadow1;
 	public Image Shadow2;
+	public bool Left = true;
 
 	struct Data
 	{
@@ -16,6 +17,7 @@ public class Zangeki : MonoBehaviour {
 		public float x;
 		public float w;
 		public Image img;
+		public bool Left;
 
 		public void update()
 		{
@@ -34,15 +36,24 @@ public class Zangeki : MonoBehaviour {
 			} else if (t < 0.2f) {
 				w = maxw - ((t-0.1f)/0.1f) * maxw;
 				x = ((t-0.1f)/0.1f) * maxw;
+				if (Left)
+					x = -x;
 			}
 
 			var trans = img.gameObject.transform as RectTransform;
 			var pos = trans.localPosition;
-			pos.x = x;
+				pos.x = x;
 			trans.localPosition = pos;
 
+			if (Left) {
+				var rot = trans.localRotation;
+				Quaternion quat = new Quaternion ();
+				quat.eulerAngles = new Vector3(0, 0, 180);
+				trans.localRotation = quat;
+			}
+
 			var size = trans.sizeDelta;
-			size.x = w;
+				size.x = w;
 			trans.sizeDelta = size;
 		}
 	};
@@ -63,6 +74,10 @@ public class Zangeki : MonoBehaviour {
 		DataBase.delay = 0;
 		DataShadow1.delay = 0.05f;
 		DataShadow2.delay = 0.08f;
+
+		DataBase.Left = Left;
+		DataShadow1.Left = Left;
+		DataShadow2.Left = Left;
 	}
 	
 	// Update is called once per frame
@@ -71,6 +86,8 @@ public class Zangeki : MonoBehaviour {
 		DataShadow1.update ();
 		DataShadow2.update ();
 
-
+		if (DataShadow2.timer > 0.5f) {
+			GameObject.Destroy (gameObject);
+		}
 	}
 }
