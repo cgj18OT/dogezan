@@ -16,4 +16,7 @@ EditorBuildSettings:
     guid: bb76bb9ed7034ff49908978e20b304c4
   - enabled: 1
     path: Assets/Scenes/DogezaChan.unity
-    guid: 00000000000000000000000000000000
+    guid: e2208670e58976a42b9c66b3d59d1fbb
+  - enabled: 1
+    path: Assets/Scenes/Story.unity
+    guid: 5d8bf6fd6bd5ec1459719906b24659a4

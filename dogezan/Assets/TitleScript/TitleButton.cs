@@ -9,6 +9,8 @@ public class TitleButton : MonoBehaviour {
 	float alpha = 0.0f;
 	public GameObject WhiteFadeObject;
 
+	private float storyTimer = 10.0f;
+
 	// Use this for initialization
 	void Awake () {
 		enabled = false;
@@ -21,6 +23,15 @@ public class TitleButton : MonoBehaviour {
 	void Update () {
 		if (!enabled || keyDowned)
 			return;
+
+		storyTimer -= Time.deltaTime;
+		if (storyTimer <= 0.0f) {
+			keyDowned = true;
+			SetAlpha (1);
+			AudioPlay ("Audio Source3");
+			WhiteFadeObject.SetActive (true);
+			Invoke ("ChangeScene2", 2);
+		}
 		
 		alpha += Step;
 		if (alpha < 0 || alpha > 1) {
@@ -42,6 +53,11 @@ public class TitleButton : MonoBehaviour {
 	void ChangeScene()
 	{	
 		SceneManager.LoadScene ("DogezaChan");
+	}
+
+	void ChangeScene2()
+	{	
+		SceneManager.LoadScene ("Story");
 	}
 
 	void SetAlpha(float a)
