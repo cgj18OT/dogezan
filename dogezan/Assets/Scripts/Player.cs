@@ -89,7 +89,7 @@ namespace doge
 				return;
 			}
 
-			if (Input.Vertical == 0)
+			if (Input.Vertical <= 0.01f)
 			{
 				if (!isDogeza)
 				{
