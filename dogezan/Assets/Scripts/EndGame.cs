@@ -2,33 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGame : MonoBehaviour {
-	public UnityEngine.UI.Text MessageText;
+namespace doge
+{
+	public class EndGame : MonoBehaviour
+	{
+		public Message MessageText;
 
-	private bool isEnd = false;
+		private bool isEnd = false;
 
-	private float timer = 2.0f;
+		private float timer = 2.0f;
 
-	void Start () {
-		Debug.Assert(MessageText != null);
-	}
-	
-	void Update () {
-		if (isEnd)
+		void Start()
 		{
-			timer -= Time.deltaTime;
-			if (timer <= 0.0f)
+			Debug.Assert(MessageText != null);
+		}
+
+		void Update()
+		{
+			if (isEnd)
 			{
-				UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+				timer -= Time.deltaTime;
+				if (timer <= 0.0f)
+				{
+					UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+				}
 			}
 		}
-	}
 
-	void OnEndGame()
-	{
-		MessageText.transform.localScale = new Vector3(1, 1, 1);
-		MessageText.text = "そこまで！";
+		void OnEndGame()
+		{
+			MessageText.transform.localScale = new Vector3(1, 1, 1);
+			MessageText.text = "そこまで！";
 
-		isEnd = true;
+			isEnd = true;
+		}
 	}
 }
