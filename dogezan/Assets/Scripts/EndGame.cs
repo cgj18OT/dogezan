@@ -10,7 +10,7 @@ namespace doge
 
 		private bool isEnd = false;
 
-		private float timer = 2.0f;
+		private float timer = 3.0f;
 
 		protected override void Start()
 		{

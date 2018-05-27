@@ -52,6 +52,8 @@ namespace doge
 		public AudioClip AudioDogezaAttack;
 		private AudioSource AudioSource;
 
+		private Vector3 InitPos;
+
 		Player Enemy
 		{
 			get
@@ -163,6 +165,9 @@ namespace doge
 				SongenPointValue += value;
 				SongenBar.Value = SongenPointValue;
 
+				var pos = InitPos + new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0);
+				image.rectTransform.localPosition = pos;
+
 				if (SongenPointValue <= 0.0f)
 				{
 					OnSongenPointValueIsZero();
@@ -193,6 +198,8 @@ namespace doge
 
 			AudioSource = GetComponent<AudioSource>();
 			Debug.Assert(AudioSource != null);
+
+			InitPos = image.rectTransform.localPosition;
 		}
 
 		private Input Input
