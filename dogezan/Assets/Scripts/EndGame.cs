@@ -12,11 +12,17 @@ namespace doge
 
 		private float timer = 3.0f;
 
+		public AudioClip AudioGameEnd;
+		private AudioSource AudioSource;
+
 		protected override void Start()
 		{
 			base.Start();
 
 			Debug.Assert(MessageText != null);
+
+			AudioSource = GetComponent<AudioSource>();
+			Debug.Assert(AudioGameEnd);
 		}
 
 		void Update()
@@ -60,6 +66,8 @@ namespace doge
 			}
 			MessageText.text = text;
 			MessageText.frontColor = new Color(1, 0, 0, 1);
+
+			AudioSource.PlayOneShot(AudioGameEnd);
 
 			isEnd = true;
 		}
