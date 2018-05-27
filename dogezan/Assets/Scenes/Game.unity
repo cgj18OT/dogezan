@@ -1150,6 +1150,7 @@ MonoBehaviour:
   AudioDogezaAttack: {fileID: 8300000, guid: d397692f2d49a3c4ab64e2985ca68e17, type: 3}
   LoserEffect: {fileID: 1156051204589066, guid: e9b2c622c2291294e9a083c3859e0d8e,
     type: 2}
+  Zangeki: {fileID: 1282825446706154, guid: f022433af2e6b544b8dbe6f9ea27ea1e, type: 2}
 --- !u!114 &1163563398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1993,6 +1994,7 @@ MonoBehaviour:
   AudioDogezaAttack: {fileID: 8300000, guid: d397692f2d49a3c4ab64e2985ca68e17, type: 3}
   LoserEffect: {fileID: 1156051204589066, guid: e9b2c622c2291294e9a083c3859e0d8e,
     type: 2}
+  Zangeki: {fileID: 1282825446706154, guid: f022433af2e6b544b8dbe6f9ea27ea1e, type: 2}
 --- !u!82 &1887453469
 AudioSource:
   m_ObjectHideFlags: 0

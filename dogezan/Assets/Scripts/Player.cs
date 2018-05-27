@@ -60,6 +60,8 @@ namespace doge
 
 		public GameObject LoserEffect;
 
+		public GameObject Zangeki;
+
 		Player Enemy
 		{
 			get
@@ -298,6 +300,20 @@ namespace doge
 					isAttack = true;
 					attackIndex = 0;
 
+					{
+						var go = (GameObject)Instantiate (Zangeki, CanvasRoot.transform);
+						if (this.playerID == PlayerID.P1) {
+							go.transform.localPosition = new Vector3 (20, 50, 0);
+							var eff = go.GetComponent<Zangeki> ();
+							eff.Left = false;
+						} else {
+							go.transform.localPosition = new Vector3 (-80, 50, 0);
+							var eff = go.GetComponent<Zangeki> ();
+							eff.Left = true;
+						}
+					}
+
+
 					if (Enemy.isDogeza)
 					{
 						MissGenerator.generate(playerID, "すまぬ……");
@@ -310,6 +326,7 @@ namespace doge
 						if (canSongenDown)
 						{
 							MissGenerator.generate(playerID, "死になはれ");
+
 							AudioSource.PlayOneShot(AudioEnemyKill);
 							KillYou = true;
 						}
