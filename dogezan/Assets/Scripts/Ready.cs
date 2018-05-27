@@ -19,9 +19,21 @@ namespace doge
 
 		public Message MessageText;
 
+		public AudioClip AudioReadyWait;
+		public AudioClip AudioCountDown;
+		public AudioClip AudioGameStart;
+		private AudioSource AudioSource;
+
 		override protected void Start()
 		{
 			base.Start();
+
+			//Audio
+			AudioSource = GetComponent<AudioSource>();
+			Debug.Assert(AudioSource != null);
+			Debug.Assert(AudioReadyWait != null);
+			Debug.Assert(AudioCountDown!= null);
+			Debug.Assert(AudioGameStart != null);
 
 			InitFirstWait();
 		}
@@ -68,6 +80,8 @@ namespace doge
 			GenericTimer = FirstWaitTime;
 			SetMessageText("両者、構え！");
 			SetMessageScale(1);
+
+			AudioSource.PlayOneShot(AudioReadyWait);
 		}
 
 		private void UpdateFirstWait()
@@ -117,6 +131,7 @@ namespace doge
 			{
 				old_index = index;
 				MessageText.transform.localScale = new Vector3(1, 1, 1);
+				AudioSource.PlayOneShot(AudioCountDown);
 			}
 			string[] msg = { "壱", "弐", "参" };
 			SetMessageText(msg[index]);
@@ -127,6 +142,8 @@ namespace doge
 		{
 			CurrentState = State.InGame;
 			Debug.Log("Go to InGame.");
+
+			AudioSource.PlayOneShot(AudioGameStart);
 
 			StateRoot.BroadcastMessage("OnStartGame");
 			CanvasRoot.BroadcastMessage("OnStartGame");

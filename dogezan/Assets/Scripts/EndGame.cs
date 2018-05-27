@@ -40,14 +40,23 @@ namespace doge
 			if(diff < 0.5f)
 			{
 				text = "両者、敗北";
+				GameResultData.Result = PlayerID.Unknown;
+				GameResultData.P1.SongenValue = 0.0f;
+				GameResultData.P2.SongenValue = 0.0f;
 			}
 			else if (Player1.SongenPointValue < Player2.SongenPointValue)
 			{
 				text = "勝者、右の者";
+				GameResultData.Result = PlayerID.P2;
+				GameResultData.P1.SongenValue = Player1.SongenPointValue;
+				GameResultData.P2.SongenValue = Player2.SongenPointValue;
 			}
 			else if (Player1.SongenPointValue > Player2.SongenPointValue)
 			{
 				text = "勝者、左の者";
+				GameResultData.Result = PlayerID.P1;
+				GameResultData.P1.SongenValue = Player1.SongenPointValue;
+				GameResultData.P2.SongenValue = Player2.SongenPointValue;
 			}
 			MessageText.text = text;
 			MessageText.frontColor = new Color(1, 0, 0, 1);
