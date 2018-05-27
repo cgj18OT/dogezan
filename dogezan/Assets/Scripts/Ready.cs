@@ -17,7 +17,7 @@ namespace doge
 		public float FirstWaitTime = 3;
 		private float GenericTimer = 0;
 
-		public UnityEngine.UI.Text MessageText;
+		public Message MessageText;
 
 		override protected void Start()
 		{

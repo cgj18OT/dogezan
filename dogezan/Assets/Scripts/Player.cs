@@ -31,8 +31,11 @@ namespace doge
 		private float SongenDownTimer = 0.1f;
 
 		public float SongenPointMax = 100;
-		private float SongenPointValue = 0;
+		[HideInInspector]
+		[System.NonSerialized]
+		public float SongenPointValue = 0;
 		public float SongenPointDownSpeed = 1.0f;
+		public SongenBar SongenBar;
 		public UnityEngine.UI.Text DebugText;
 
 		[HideInInspector]
@@ -40,6 +43,8 @@ namespace doge
 		public bool AlwaysDogeza = true;
 
 		public float AttackMissDamage = 0;
+
+		private UnityEngine.UI.Image[] images;
 
 		Player Enemy
 		{
@@ -117,13 +122,14 @@ namespace doge
 					MySongenDownEffect = (GameObject)Instantiate(SongenDownEffect);
 
 					Vector3 pos;
+					float z = 100.0f;
 					if (playerID == PlayerID.P1)
 					{
-						pos = new Vector3(0.44f, -9.64f, 165.0f);
+						pos = new Vector3(0.44f, -9.64f, z);
 					}
 					else
 					{
-						pos = new Vector3(8.8f, -9.64f, 165.0f);
+						pos = new Vector3(8.8f, -9.64f, z);
 					}
 					MySongenDownEffect.transform.position = pos;
 				}
@@ -132,17 +138,14 @@ namespace doge
 			if (isDogezaDowing)
 			{
 				var songenDelta = SongenPointDownSpeed * Time.deltaTime;
-				SongenPointValue -= songenDelta;
-				if (SongenPointValue <= 0.0f)
-				{
-					OnSongenPointValueIsZero();
-				}
+				AddSongenValue(-songenDelta);
 			}
 		}
 
 		void OnSongenPointValueIsZero()
 		{
 			SongenPointValue = 0.0f;
+			SongenBar.Value = 0;
 			StateRoot.BroadcastMessage("OnEndGame");
 			CanvasRoot.BroadcastMessage("OnEndGame");
 		}
@@ -152,6 +155,7 @@ namespace doge
 			if (canSongenDown)
 			{
 				SongenPointValue += value;
+				SongenBar.Value = SongenPointValue;
 
 				if (SongenPointValue <= 0.0f)
 				{
@@ -174,6 +178,13 @@ namespace doge
 			InitSongenValue();
 
 			Debug.Assert(DebugText != null);
+
+			Debug.Assert(SongenBar != null);
+			SongenBar.MaxValue = SongenPointMax;
+			SongenBar.Value = SongenPointMax;
+
+			images = GetComponentsInChildren<UnityEngine.UI.Image>();
+			Debug.Assert(images.Length == 2);
 		}
 
 		private Input Input
@@ -194,6 +205,7 @@ namespace doge
 			}
 
 			DebugText.text = SongenPointValue.ToString("F3");
+			SongenBar.Value = SongenPointValue;
 		}
 
 		void UpdateAttack()
@@ -266,8 +278,11 @@ namespace doge
 
 		void ChangePattern(Sprite pattern, Vector2 size)
 		{
-			image.sprite = pattern;
-			image.rectTransform.sizeDelta = size;
+			foreach (var image in images)
+			{
+				image.sprite = pattern;
+				image.rectTransform.sizeDelta = size;
+			}
 		}
 	}
 }

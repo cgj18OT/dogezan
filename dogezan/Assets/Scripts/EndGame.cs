@@ -2,33 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGame : MonoBehaviour {
-	public UnityEngine.UI.Text MessageText;
+namespace doge
+{
+	public class EndGame : DogeGameBehavior
+	{
+		public Message MessageText;
 
-	private bool isEnd = false;
+		private bool isEnd = false;
 
-	private float timer = 2.0f;
+		private float timer = 2.0f;
 
-	void Start () {
-		Debug.Assert(MessageText != null);
-	}
-	
-	void Update () {
-		if (isEnd)
+		protected override void Start()
 		{
-			timer -= Time.deltaTime;
-			if (timer <= 0.0f)
+			base.Start();
+
+			Debug.Assert(MessageText != null);
+		}
+
+		void Update()
+		{
+			if (isEnd)
 			{
-				UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+				timer -= Time.deltaTime;
+				if (timer <= 0.0f)
+				{
+					UnityEngine.SceneManagement.SceneManager.LoadScene("Result");
+				}
 			}
 		}
-	}
 
-	void OnEndGame()
-	{
-		MessageText.transform.localScale = new Vector3(1, 1, 1);
-		MessageText.text = "そこまで！";
+		void OnEndGame()
+		{
+			MessageText.transform.localScale = new Vector3(1, 1, 1);
 
-		isEnd = true;
+			string text = "";
+			var diff = Mathf.Abs(Player1.SongenPointValue - Player2.SongenPointValue);
+			if(diff < 0.5f)
+			{
+				text = "両者、敗北";
+			}
+			else if (Player1.SongenPointValue < Player2.SongenPointValue)
+			{
+				text = "勝者、右の者";
+			}
+			else if (Player1.SongenPointValue > Player2.SongenPointValue)
+			{
+				text = "勝者、左の者";
+			}
+			MessageText.text = text;
+			MessageText.frontColor = new Color(1, 0, 0, 1);
+
+			isEnd = true;
+		}
 	}
 }
